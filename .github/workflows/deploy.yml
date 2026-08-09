@@ -1,0 +1,51 @@
+name: Deploy to cPanel
+
+# Every push to main publishes the contents of public/ to the review site.
+# Typical run time: 20-40 seconds.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # adds a "Run workflow" button for manual redeploys
+
+concurrency:
+  group: deploy-review
+  cancel-in-progress: true  # a newer push supersedes one still running
+
+jobs:
+  deploy:
+    name: Publish to review.cisogusa.com
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # required so the action can diff against the server
+
+      - name: Sanity check — index.html must exist
+        run: |
+          test -f public/index.html || { echo "::error::public/index.html is missing"; exit 1; }
+          echo "Publishing $(find public -type f | wc -l) files"
+
+      - name: Deploy over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:   ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps          # explicit FTP over TLS. Never use plain ftp.
+          port: 21
+          local-dir: ./public/
+          server-dir: ${{ secrets.FTP_TARGET_DIR }}
+          dangerous-clean-slate: false   # keeps files on the server not in public/
+          log-level: minimal
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.DS_Store
+            **/node_modules/**
+            **/README.md
+
+      - name: Done
+        run: echo "Live at https://review.cisogusa.com — allow a few seconds for cache."

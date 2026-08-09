@@ -1,0 +1,4 @@
+# CISOG USA — review site
+# Staging. Not for indexing. See also the X-Robots-Tag header in .htaccess.
+User-agent: *
+Disallow: /
