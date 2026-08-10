@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CISOG Technology Consults | Cybersecurity, GRC, AI Governance &amp; Digital Transformation</title>
 <meta name="description" content="CISOG Technology Consults helps organizations strengthen cybersecurity, manage technology risk, govern artificial intelligence and transform digital operations.">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta property="og:title" content="CISOG Technology Consults">
+<meta property="og:description" content="Technology consulting for a more secure, resilient and intelligent future.">
+<meta property="og:image" content="images/cisog-logo-social.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="images/cisog-logo-social.jpg">
 <style>
 /* ============================================================
    CISOG USA — DESIGN SYSTEM v2.0
@@ -124,9 +133,10 @@ h1,h2,h3,h4{color:var(--ink-900);margin:0;font-weight:700;letter-spacing:-.02em}
 .hdr{position:sticky;top:0;z-index:100;background:var(--white);box-shadow:var(--sh-header);transition:box-shadow .2s}
 .hdr.is-scrolled{box-shadow:var(--sh-md)}
 .hdr-in{display:flex;align-items:center;gap:40px;height:var(--header-h)}
-.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;flex:none}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;flex:none}
 .brand b{font-size:22px;font-weight:800;letter-spacing:-.045em;color:var(--ink-900)}
 .brand span{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--blue-600);border:1px solid var(--blue-200);border-radius:var(--r-sm);padding:2px 6px}
+.brand-mark{height:48px;width:auto;display:block}
 .nav{display:flex;align-items:center;gap:4px;margin-left:auto}
 .nav-item{position:relative}
 .nav-btn{
@@ -253,7 +263,7 @@ h1,h2,h3,h4{color:var(--ink-900);margin:0;font-weight:700;letter-spacing:-.02em}
 .scroller{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter)}
 .ind{position:relative;border-radius:var(--r-md);overflow:hidden;min-height:230px;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;background:var(--ink-900);border:1px solid var(--ink-700);transition:transform .18s var(--e-out),border-color .18s}
 .ind:hover{transform:translateY(-4px);border-color:var(--cyan-400)}
-.ind::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgb(20 84 212 / .28),transparent 62%)}
+.ind::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgb(20 84 212 / .28),transparent 62%),linear-gradient(0deg,rgb(6 13 26/.92) 0%,rgb(6 13 26/.6) 42%,rgb(6 13 26/.15) 72%,transparent 100%)}
 .ind h3{font-size:20px;color:#fff;position:relative;margin-bottom:6px}
 .ind p{position:relative;margin:0;font-size:14.5px;color:var(--slate-300);line-height:1.5}
 
@@ -268,6 +278,8 @@ h1,h2,h3,h4{color:var(--ink-900);margin:0;font-weight:700;letter-spacing:-.02em}
 .post:hover{transform:translateY(-4px)}
 .post .thumb{aspect-ratio:16/10;border-radius:var(--r-md);background:linear-gradient(135deg,var(--ink-800),var(--ink-900));margin-bottom:22px;position:relative;overflow:hidden;border:1px solid var(--slate-200)}
 .post .thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(280px 200px at 70% 25%,rgb(34 211 238 / .22),transparent 70%)}
+.post .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s var(--e-out)}
+.post:hover .thumb img{transform:scale(1.04)}
 .post .cat{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-600);margin-bottom:12px}
 .post h3{font-size:21px;line-height:1.3;margin-bottom:12px;font-weight:600}
 .post:hover h3{color:var(--blue-700)}
@@ -289,6 +301,8 @@ h1,h2,h3,h4{color:var(--ink-900);margin:0;font-weight:700;letter-spacing:-.02em}
 .ftr li+li{margin-top:11px}
 .ftr a{color:var(--slate-300);text-decoration:none;font-size:15px}
 .ftr a:hover{color:var(--cyan-400)}
+.ftr-brand-row{display:flex;align-items:center;gap:10px}
+.ftr-brand-row img{height:96px;width:auto;display:block}
 .ftr-brand b{font-size:22px;font-weight:800;letter-spacing:-.045em;color:#fff;display:block}
 .ftr-tag{color:var(--cyan-400);font-size:14px;font-weight:600;letter-spacing:.04em;margin:10px 0 16px}
 .ftr-desc{font-size:14.5px;color:var(--slate-450);line-height:1.6;max-width:34ch}
@@ -623,7 +637,7 @@ table.spec td code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-
 <!-- ============ HEADER ============ -->
 <header class="hdr" id="hdr">
   <div class="container hdr-in">
-    <a class="brand" href="#/" data-nav><b>CISOG</b><span>USA</span></a>
+    <a class="brand" href="#/" data-nav><img class="brand-mark" src="images/cisog-logo-small.png" alt="CISOG"><b>CISOG</b><span>USA</span></a>
 
     <nav class="nav" aria-label="Primary">
       <div class="nav-item">
@@ -793,9 +807,8 @@ table.spec td code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-
           <p style="margin-top:28px"><a class="btn btn--ghost" href="#/services" data-nav>See how we help →</a></p>
         </div>
         <div style="border-radius:var(--r-lg);overflow:hidden;background:var(--ink-900);aspect-ratio:4/3;position:relative;border:1px solid var(--slate-200)">
-          <div style="position:absolute;inset:0;background:radial-gradient(400px 300px at 65% 30%,rgb(20 84 212 / .38),transparent 70%)"></div>
-          <div style="position:absolute;inset:0;background-image:linear-gradient(rgb(255 255 255/.05) 1px,transparent 1px),linear-gradient(90deg,rgb(255 255 255/.05) 1px,transparent 1px);background-size:44px 44px"></div>
-          <div style="position:absolute;left:32px;bottom:32px;right:32px;color:var(--slate-450);font-size:13px;letter-spacing:.08em;text-transform:uppercase">Hero visual — executive technology environment</div>
+          <img src="images/cybersecurity-operations-team.jpg" alt="A security team monitors threat dashboards while executives review the organization's risk posture." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" loading="lazy" width="1080" height="1080">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgb(10 22 40/0) 45%,rgb(6 13 26/.85) 100%)"></div>
         </div>
       </div>
     </div>
@@ -866,10 +879,10 @@ table.spec td code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-
     <div class="container">
       <div class="sec-head reveal"><p class="eyebrow">Industries</p><h2 class="t-h2">Where technology risk is a board issue</h2></div>
       <div class="scroller reveal">
-        <a class="ind on-dark" href="#/financial-services" data-nav><h3>Financial Services</h3><p>Cyber risk, regulatory compliance, third-party risk, AI governance.</p></a>
-        <a class="ind on-dark" href="#/financial-services" data-nav><h3>Government</h3><p>Digital government, IT governance, cybersecurity, modernization.</p></a>
-        <a class="ind on-dark" href="#/financial-services" data-nav><h3>Healthcare</h3><p>Cybersecurity, privacy, technology governance, transformation.</p></a>
-        <a class="ind on-dark" href="#/financial-services" data-nav><h3>SMEs &amp; Growth</h3><p>Fractional leadership, cybersecurity, cloud, IT strategy.</p></a>
+        <a class="ind on-dark" href="#/financial-services" data-nav style="background-image:url('images/digital-transformation-strategy-boardroom.jpg');background-size:cover;background-position:center"><h3>Financial Services</h3><p>Cyber risk, regulatory compliance, third-party risk, AI governance.</p></a>
+        <a class="ind on-dark" href="#/financial-services" data-nav style="background-image:url('images/digital-transformation-architecture-review.jpg');background-size:cover;background-position:center"><h3>Government</h3><p>Digital government, IT governance, cybersecurity, modernization.</p></a>
+        <a class="ind on-dark" href="#/financial-services" data-nav style="background-image:url('images/digital-transformation-team-huddle.jpg');background-size:cover;background-position:center"><h3>Healthcare</h3><p>Cybersecurity, privacy, technology governance, transformation.</p></a>
+        <a class="ind on-dark" href="#/financial-services" data-nav style="background-image:url('images/cybersecurity-operations-team.jpg');background-size:cover;background-position:center top"><h3>SMEs &amp; Growth</h3><p>Fractional leadership, cybersecurity, cloud, IT strategy.</p></a>
       </div>
     </div>
   </section>
@@ -898,9 +911,9 @@ table.spec td code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-
         <a class="btn btn--ghost" href="#/insights" data-nav style="padding-bottom:8px">All insights →</a>
       </div>
       <div class="grid g-3 reveal">
-        <a class="post" href="#/article" data-nav><div class="thumb"></div><div class="cat">Cybersecurity</div><h3>What every CEO should know about cyber risk</h3><p class="meta">Executive Brief · 3 min read</p></a>
-        <a class="post" href="#/article" data-nav><div class="thumb"></div><div class="cat">AI Governance</div><h3>Why your organization needs an AI inventory before it needs an AI policy</h3><p class="meta">Article · 3 min read</p></a>
-        <a class="post" href="#/article" data-nav><div class="thumb"></div><div class="cat">GRC</div><h3>The five most common cybersecurity governance gaps</h3><p class="meta">Article · 3 min read</p></a>
+        <a class="post" href="#/article" data-nav><div class="thumb"><img src="images/cybersecurity-briefing.jpg" alt="" loading="lazy" width="1536" height="1024"></div><div class="cat">Cybersecurity</div><h3>What every CEO should know about cyber risk</h3><p class="meta">Executive Brief · 3 min read</p></a>
+        <a class="post" href="#/article" data-nav><div class="thumb"><img src="images/ai-governance-framework-briefing.jpg" alt="" loading="lazy" width="1024" height="1024"></div><div class="cat">AI Governance</div><h3>Why your organization needs an AI inventory before it needs an AI policy</h3><p class="meta">Article · 3 min read</p></a>
+        <a class="post" href="#/article" data-nav><div class="thumb"><img src="images/ai-governance-model-risk-review.jpg" alt="" loading="lazy" width="1200" height="896"></div><div class="cat">GRC</div><h3>The five most common cybersecurity governance gaps</h3><p class="meta">Article · 3 min read</p></a>
       </div>
     </div>
   </section>
@@ -1892,7 +1905,10 @@ table.spec td code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-
   <div class="container">
     <div class="ftr-grid">
       <div class="ftr-brand">
-        <b>CISOG <span style="color:var(--cyan-400)">USA</span></b>
+        <div class="ftr-brand-row">
+          <img src="images/cisog-logo-small.png" alt="CISOG Technology Consults LLC" loading="lazy">
+          <b>CISOG <span style="color:var(--cyan-400)">USA</span></b>
+        </div>
         <p class="ftr-tag">SECURE. TRANSFORM. GOVERN. GROW.</p>
         <p class="ftr-desc">CISOG Technology Consults LLC is a U.S.-based technology consulting and business advisory firm, part of the CISOG Group.</p>
       </div>
@@ -1903,7 +1919,7 @@ table.spec td code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-
     </div>
     <div class="ftr-btm">
       <span>© 2026 CISOG Technology Consults LLC. All rights reserved.</span>
-      <nav aria-label="Legal"><a href="#/">Privacy</a><a href="#/">Terms</a><a href="#/">Cookies</a><a href="#/">Accessibility</a><a href="#/system" data-nav>Design system</a></nav>
+      <nav aria-label="Legal"><a href="#/">Privacy</a><a href="#/">Terms</a><a href="#/">Cookies</a><a href="#/">Accessibility</a></nav>
     </div>
   </div>
 </footer>
