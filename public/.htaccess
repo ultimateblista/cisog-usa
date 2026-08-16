@@ -1,19 +1,10 @@
 # ============================================================
-# CISOG USA — review site
-# Staging configuration. NOT the production config.
+# CISOG USA — cisogusa.cisoggroup.com
+# cPanel / Apache production configuration
 # ============================================================
 
-# ---- 1. Keep this site out of search engines -------------------------------
-# A staging copy that gets indexed competes with the real site later and can
-# outrank it. robots.txt asks crawlers not to look; this header tells them not
-# to index even if they arrive via a link someone shared. Both are needed.
-<IfModule mod_headers.c>
-  Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
-</IfModule>
-
-# ---- 2. Force HTTPS --------------------------------------------------------
-# cPanel AutoSSL issues a free certificate. Turn it on for this subdomain
-# before enabling this block, or you will redirect visitors to a broken page.
+# ---- 1. Canonical host + HTTPS ------------------------------------------
+# Enable AFTER cPanel AutoSSL has issued a certificate for this subdomain.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
@@ -21,65 +12,51 @@
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# ---- 3. Security headers ---------------------------------------------------
-# Modest set appropriate to a static review site. Production gets the full
-# policy in §13.3 of the build specification, including a CSP with nonces.
+# ---- 2. Security headers ------------------------------------------------
 <IfModule mod_headers.c>
-  Header set X-Content-Type-Options "nosniff"
-  Header set Referrer-Policy "strict-origin-when-cross-origin"
-  Header set X-Frame-Options "SAMEORIGIN"
-  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
-  # HSTS is deliberately omitted on staging. It is difficult to undo if you
-  # later need plain HTTP on this hostname for any reason.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  # Enable HSTS only once HTTPS is confirmed working on the live domain.
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 </IfModule>
 
-# ---- 4. Compression --------------------------------------------------------
+# ---- 3. Compression -----------------------------------------------------
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript
   AddOutputFilterByType DEFLATE application/javascript application/json
-  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/svg+xml application/pdf
 </IfModule>
 
-# ---- 5. Caching ------------------------------------------------------------
-# index.html is deliberately NOT cached. If it were, the client would keep
-# seeing an old version after you push a change — which defeats the point of
-# this whole setup. Static assets are cached hard because their names change
-# when their contents do.
+# ---- 4. Caching ---------------------------------------------------------
+# index.html must never be cached or visitors keep seeing an old build.
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 hour"
-  ExpiresByType image/svg+xml "access plus 1 month"
-  ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType text/css "access plus 1 week"
-  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
-
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html)$">
+  <FilesMatch "\.html$">
     Header set Cache-Control "no-cache, must-revalidate, max-age=0"
   </FilesMatch>
 </IfModule>
 
-# ---- 6. Password protection ------------------------------------------------
-# Recommended, but set it up through cPanel rather than by hand.
-#
-#   cPanel → Files → Directory Privacy → select the review folder
-#           → tick "Password protect this directory" → add a user
-#
-# cPanel writes the .htpasswd file and the matching directives for you, with
-# the password correctly hashed. Do not paste a hash from an online generator
-# — you would be handing a third-party site a credential for your own server,
-# which is a poor look for a cybersecurity consultancy.
-#
-# If you prefer the link to be shareable without a login, skip this. The
-# noindex header above is doing the important work either way.
-
-# ---- 7. Tidy ---------------------------------------------------------------
+# ---- 5. Hardening -------------------------------------------------------
 Options -Indexes
 ServerSignature Off
-
 <FilesMatch "^\.">
   Require all denied
 </FilesMatch>
+<FilesMatch "\.(bak|backup|log|sql|md|py|json)$">
+  Require all denied
+</FilesMatch>
 
+# ---- 6. Single-page routing --------------------------------------------
+# The site uses hash routing, so a 404 should still serve the app shell.
 ErrorDocument 404 /index.html

@@ -1,17 +1,1 @@
-# Cloudflare Pages headers — equivalent of vercel.json / .htaccess
-# Applies automatically. No configuration needed in the dashboard.
-
-/*
-  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
-
-# index.html must never be cached, or the client keeps seeing the old
-# version after a push — which defeats the point of the whole setup.
-/
-  Cache-Control: public, max-age=0, must-revalidate
-
-/index.html
-  Cache-Control: public, max-age=0, must-revalidate
+# unused on cPanel (Cloudflare Pages format) — safe to delete

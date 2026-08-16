@@ -1,4 +1,5 @@
-# CISOG USA — review site
-# Staging. Not for indexing. See also the X-Robots-Tag header in .htaccess.
+# CISOG Technology Consults LLC
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://cisogusa.cisoggroup.com/sitemap.xml
