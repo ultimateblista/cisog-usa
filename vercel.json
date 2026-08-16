@@ -1,6 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "_comment": "TEST DEPLOYMENTS ONLY. Production is cPanel at cisogusa.cisoggroup.com and uses public/.htaccess. Vercel ignores .htaccess; cPanel ignores this file. The noindex header below keeps the test URL out of search so it never competes with the live domain.",
   "outputDirectory": "public",
   "cleanUrls": false,
   "trailingSlash": false,
